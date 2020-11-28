@@ -1,0 +1,2 @@
+#!/bin/bash
+[ $(xfconf-query -c xfce4-screensaver -p /saver/enabled list) = true ] && $(xfconf-query -c xfce4-screensaver -p /saver/enabled -s false &notify-send "screensaver off") || $(xfconf-query -c xfce4-screensaver -p /saver/enabled -s true & notify-send "screensaver on")
