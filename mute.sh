@@ -1,6 +1,6 @@
 #!/bin/sh
-previousNumber=50
-com=mute
+previousNumber=65
+com=unmute
 case $com in 
 	"mute")
    		volume="$(amixer sget Master | grep 'Left:' | awk -F'[][]' '{ print $2}')"
