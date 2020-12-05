@@ -1,7 +1,7 @@
 #!/bin/bash
 newmail () {
-	count=$(curl -u $1:$2 --silent "https://mail.google.com/mail/feed/atom" | sed -e "s|.*<fullcount>\(.*\)</fullcount>.*|\1|")
-	echo $count
+	 count=$(curl -u $1:$2 --silent "https://mail.google.com/mail/feed/atom")
+         echo $count | sed -e "s|.*<fullcount>\(.*\)</fullcount>.*|\1|"
 }
 vu=
 vupass=
