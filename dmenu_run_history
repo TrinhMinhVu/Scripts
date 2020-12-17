@@ -23,7 +23,7 @@ awk -v histfile=$historyfile '
 			x[$0]=1
 		}
 	} !x[$0]++ ' "$cache" \
-	| dmenu "$@" -nb "$color0" -nf "$color15" -sb "$color1" -sf "$color13" -fn "Hack-11"\
+	| dmenu "$@" -nb "$color0" -nf "$color15" -sb "$color1" -sf "$color13" -fn "Fira Mono-12"\
 	| awk -v histfile=$historyfile '
 		BEGIN {
 			FS=OFS="\t"

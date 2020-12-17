@@ -1,2 +1,3 @@
 #!/bin/bash
-[ $(ibus engine) = 'xkb:us::eng' ] && ibus engine xkb:vn::vie || ibus engine xkb:us::eng
+[ $(ibus engine) = 'xkb:us::eng' ] && ibus engine Bamboo || ibus engine xkb:us::eng
+polybar-msg hook ipc-vie-eng 1
