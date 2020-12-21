@@ -26,4 +26,5 @@ case $1 in
 	*)
 	echo -e "--scan to scan available wifi\n--list to list saved connections\n--connect <ssid> to connect\n--disconnect to disconnect all connections\n--password <ssid> to see a connection's password\n--delete <connection> to delete a known connection"
 	
-	esac
+esac
+exit 0

@@ -13,3 +13,4 @@ case $(ibus engine) in
 		;;
 esac
 
+exit 0

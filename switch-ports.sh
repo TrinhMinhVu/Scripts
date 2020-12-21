@@ -19,3 +19,4 @@ case $current in
     #notify-send "lineout" -t 1000
 	;;
 esac
+exit 0

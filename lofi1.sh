@@ -35,4 +35,4 @@ case $1 in
 
 	*) echo "what chu want $num" ;;
 esac
-exit 0;
+exit 0

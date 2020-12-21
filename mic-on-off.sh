@@ -12,4 +12,4 @@ case $com in
 		notify-send "mic umuted" -t 1000
 	;;
 esac
-
+exit 0

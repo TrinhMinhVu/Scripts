@@ -28,3 +28,4 @@ case "$1" in
 esac
 else curl wttr.in/?n
 fi
+exit 0

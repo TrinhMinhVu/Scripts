@@ -10,3 +10,4 @@ vikpass=
 fx=
 fxpass=
 echo "vu: $(newmail $vu $vupass) vik: $(newmail $vik $vikpass) fx: $(newmail $fx $fxpass)"
+exit 0

@@ -11,7 +11,7 @@ com=mute
          sed -i "3s/.*/com=mute/" ${HOME}/Scripts/mute.sh
       ;;
    esac
-
+exit 0
 #previousNumber=60
 #com=mute
 #case $com in 
