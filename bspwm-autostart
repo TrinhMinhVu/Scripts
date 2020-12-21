@@ -1,0 +1,6 @@
+#!/bin/bash
+$HOME/Scripts/disablemouseaccel.sh
+
+pkill -9 -f "Scripts/update-mail-for-polybar.sh"
+
+$HOME/Scripts/update-mail-for-polybar.sh &
