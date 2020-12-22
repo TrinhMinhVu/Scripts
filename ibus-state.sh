@@ -3,10 +3,10 @@
 
 case $(ibus engine) in
 	"xkb:us::eng")
-		echo "eng"
+		echo "Eng"
 		;;
 	"Bamboo")
-		echo "vie"
+		echo "Vie"
 		;;
 	*)
 		echo "off"
