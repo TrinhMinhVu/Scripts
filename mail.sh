@@ -9,5 +9,15 @@ vik=
 vikpass=
 fx=
 fxpass=
-echo "vu: $(newmail $vu $vupass) vik: $(newmail $vik $vikpass) fx: $(newmail $fx $fxpass)"
+
+num=$(($(newmail $vu $vupass)+$(newmail $vik $vikpass)+$(newmail $fx $fxpass)))
+
+if [ $num -eq 0 ]; then
+	echo "📭 $num" > $HOME/.local/mail-count
+elif [ $num -gt 0 ]; then
+	echo "📬 $num" > $HOME/.local/mail-count
+else
+	echo "❓" > $HOME/.local/mail-count
+fi
+
 exit 0
