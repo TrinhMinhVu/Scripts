@@ -18,14 +18,20 @@ case "$1" in
 	;;
 "--full")
 	if [ "$2" != "" ]; then
-		curl wttr.in/${diaDanh[$2]}
-	else curl wttr.in/
+		curl -s wttr.in/${diaDanh[$2]}?lang=vi
+	else curl -s wttr.in/?lang=vi
+	fi
+	;;
+"--mini")
+	if [ "$2" != "" ]; then
+		curl -s wttr.in/${diaDanh[$2]}?lang=vi\&format="%f+%C"
+	else curl wttr.in/?lang=vi\&format="%f+%C"
 	fi
 	;;
 *)
-	curl wttr.in/${diaDanh[$1]}?n
+	curl -s wttr.in/${diaDanh[$1]}?lang=vi\&n
 	;;
 esac
-else curl wttr.in/?n
+else curl -s wttr.in/?lang=vi\&n
 fi
 exit 0
