@@ -9,7 +9,7 @@ case $current in
     sed -i "2s/.*/current=1;/" "${HOME}"/Scripts/switch-ports.sh
     echo "🎧" > ${HOME}/Scripts/status-head-line
 		polybar-msg hook ipc-head-line 1
-    #notify-send "headphone" -t 1000
+    #exec ${HOME}/Scripts/notify.sh "headphone" -t 1000
    	;;
 	*)
     pacmd set-sink-port alsa_output.pci-0000_00_1f.3.analog-stereo analog-output-lineout
