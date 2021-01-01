@@ -12,5 +12,13 @@ if [ -d "$currentDir/$1" ]; then
 	fi
 elif [ -e $currentDir/$1 ]; then
 	#xfce4-terminal -e "/bin/bash nvim $currentDir/$1 "
+	
+
+  	#>>	TO LIVE IS TO LEARN	<<
+	
+
 	xfce4-terminal -e "nvim $currentDir/$1"
 fi
+
+
+
