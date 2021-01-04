@@ -1,8 +1,9 @@
 [Desktop Entry]
 Name=Notes
 GenericName=Open Note Selector
-Exec=/home/mx-vu/Scripts/rofi-notes.sh GhiChu/Notes
+
+#Exec=/home/mx-vu/Scripts/rofi-notes.sh GhiChu/Notes
 Icon=nvim
 Type=Application
 StartupNotify=true
-Categories=Office;WordProcessor;
+Categories=Other;
