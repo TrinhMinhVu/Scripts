@@ -7,8 +7,9 @@ if [[ -z "$1" ]]; then
 else
 	query="$1"
 fi
-
+ 
 if [[ -n "$query" ]]; then
+	#if [[ -z "$(grep -w "https://www.youtu" <<< "$query")" ]]; then
 query="${query// /+}"
 
 # YT_API_KEY location
@@ -22,7 +23,7 @@ video="$( curl -s "${urlstring}" \
 	| awk '{print $NF " " $(NF-2)}' \
 )"
 	# if no video is selected quit the script, otherwise choose quality
-	if [[ "$video" != " " ]]; then
+	if [[ "$video" != " " && -n "$video" ]]; then
 	quality="$(youtube-dl -F https://"${video% *}" | grep "avc1\|m4a_dash" \
 		| awk '{print $4 " " $3 " code: " $1 " " $9 " " $NF}' \
 		| rofi -dmenu -i -p 'Select Quality -' -select "(best)"  -theme "~/.cache/wal/colors-rofi-dark.rasi" \
@@ -40,6 +41,10 @@ video="$( curl -s "${urlstring}" \
 	else
 		exit 0
 	fi
+	
+    #else
+#	    mpv $query &
+    #fi
 
 else 
 	exit 0
