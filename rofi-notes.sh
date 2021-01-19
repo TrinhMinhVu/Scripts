@@ -2,7 +2,9 @@
 currentDir=$(pwd)
 if [ -d "$currentDir/$1" ]; then
 	cd $1
-	var=$(echo -e "../\n..new\n$(ls -d -g -G --human-readable --group-directories-first *| awk '{ print  $8 "?" $3 "?" substr($1,1,1)  }' | column -t -s  "?")" | rofi -dmenu -theme "~/.cache/wal/colors-rofi-dark.rasi" | awk '{print $1}')
+	#var=$(echo -e "../\n..new\n$(ls -d -g -G --human-readable --group-directories-first *| awk '{ print  $8 "?" $3 "?" substr($1,1,1)  }' | column -t -s  "?")" | rofi -dmenu -theme "~/.cache/wal/colors-rofi-dark.rasi" | awk '{print $1}')
+	var=$(echo -e "../\n..new\n$(ls)" | rofi -dmenu -theme "~/.cache/wal/colors-rofi-dark.rasi" | awk '{print $1}')
+	
 	if [[ "$var" = "../" ]]; then
 		rofi-notes.sh $var
 	elif [[ "$var" = "..new" ]]; then
