@@ -12,8 +12,8 @@ if [[ -n "$query" ]]; then
 	#if [[ -z "$(grep -w "https://www.youtu" <<< "$query")" ]]; then
 query="${query// /+}"
 
-# YT_API_KEY location
-YT_API_KEY="$( cat "${HOME}"/.local/api_keys/YT_API_KEY )"
+# YT_API_KEY location from https://console.developers.google.com/apis/credentials?project=plasma-column-300712
+YT_API_KEY="$( cat "${HOME}"/.local/yt_api )"
 urlstring="https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&type=video&maxResults=30&key=${YT_API_KEY}"
 
 # select video
