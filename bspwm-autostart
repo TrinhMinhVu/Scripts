@@ -2,4 +2,5 @@
 $HOME/Scripts/disablemouseaccel.sh
 nvidia-settings -a "[gpu:0]/GPUFanControlState=1" -a "[fan:0]/GPUTargetFanSpeed=50"
 xhost si:localuser:root
+imwheel -k
 #sudo $HOME/Scripts/timesync.sh 
