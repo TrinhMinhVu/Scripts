@@ -3,7 +3,7 @@ query=""
 
 if [[ -z "$1" ]]; then
   printf "Search query: "; 
-  query=$( echo | rofi -dmenu -p "Search YT Video" -theme "~/.cache/wal/colors-rofi-dark.rasi")
+  query=$( echo | rofi -dmenu -p "Search YT Video")
 else
 	query="$1"
 fi
@@ -19,14 +19,14 @@ urlstring="https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&
 # select video
 video="$( curl -s "${urlstring}" \
 	| jq -r '.items[] | "\(.snippet.title); 📺:\(.snippet.channelTitle) 📸:\(.snippet.liveBroadcastContent) 🔎: youtu.be/\(.id.videoId)"' \
-	| rofi -dmenu -i -p 'Select Video -' -theme "~/.cache/wal/colors-rofi-dark.rasi" \
+	| rofi -dmenu -i -p 'Select Video -' \
 	| awk '{print $NF " " $(NF-2)}' \
 )"
 	# if no video is selected quit the script, otherwise choose quality
 	if [[ "$video" != " " && -n "$video" ]]; then
 	quality="$(youtube-dlc -F https://"${video% *}" | grep "avc1\|m4a_dash" \
 		| awk '{print $4 " " $3 " code: " $1 " " $9 " " $NF}' \
-		| rofi -dmenu -i -p 'Select Quality -' -select "(best)"  -theme "~/.cache/wal/colors-rofi-dark.rasi" \
+		| rofi -dmenu -i -p 'Select Quality -' -select "(best)" \
 		| awk '{print $4}' \
 	)"
 		# if quality is not select then just quit
