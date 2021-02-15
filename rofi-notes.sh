@@ -8,7 +8,7 @@ if [ -d "$currentDir/$1" ]; then
 	if [[ "$var" = "../" ]]; then
 		rofi-notes.sh $var
 	elif [[ "$var" = "..new" ]]; then
-		rofi -dmenu -theme "~/.cache/wal/colors-rofi-dark.rasi" | xargs -r -I newfile xfce4-terminal -e "nvim $currentDir/$1/newfile"
+		rofi -dmenu | xargs -r -I newfile xfce4-terminal -e "nvim $currentDir/$1/newfile"
 	elif [[ "$var" != "" ]]; then
 		rofi-notes.sh $var
 	fi
