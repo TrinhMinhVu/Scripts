@@ -12,7 +12,8 @@ sed -e 's/^[ \t]*//' \
   -e 's/Số ca nhiễm/🦠/g' \
   -e 's/Đang điều trị/🏥/g' \
   -e 's/Khỏi/🤗/g' \
-  -e 's/Tử vong/💀/g' |\
+  -e 's/Tử vong/💀/g' \
+  -e 's/\ //g' |\
   tr '\n' ' '
 
 elif [ "$1" = "extra" ]; then
@@ -30,7 +31,7 @@ sed -e 's/^[ \t]*//' \
   -e 's/Đang điều trị/🏥/g' \
   -e 's/Khỏi/🤗/g' \
   -e 's/Tử vong/💀/g' |\
-  tr '\n' ' ' > .local/covid-vn
+  tr '\n' ' a' > .local/covid-vn
 cp .local/covid-vn .local/covid-vn-new
 
 nhiemCu=$(awk '{print $2}' .local/covid-vn-old)
@@ -50,7 +51,7 @@ chetDif=$((chetMoi-chetCu))
 
 	if [ ! $nhiemDif -eq 0 ]; then
 		if [ $nhiemDif -gt 0  ]; then
-			dunstify -t 0 "CA NHIỄM MỚI" "🦠 +$nhiemDif" && sed -i "s/$nhiemMoi/$nhiemCu\ +$nhiemDif/g" .local/covid-vn && polybar-msg hook covid-vn 1
+			dunstify -t 0 "CA NHIỄM MỚI" "🦠 +$nhiemDif" && sed -i "s/$nhiemMoi/$nhiemCu\ +$nhiemDif/g" -e .local/covid-vn && polybar-msg hook covid-vn 1
 		elif [ $nhiemDif -lt 0 ]; then
 			dunstify -t 0 "CA NHIỄM MỚI" "🦠 $nhiemDif" && sed -i "s/$nhiemMoi/$nhiemCu\ $nhiemDif/g" .local/covid-vn && polybar-msg hook covid-vn 1
 		fi
@@ -58,9 +59,9 @@ chetDif=$((chetMoi-chetCu))
 
 	if [ ! $dieuTriDif -eq 0 ]; then
 		if [ $dieuTriDif -gt 0  ]; then
-			dunstify -t 0 "CA NHẬP VIỆN" "🏥 +$dieuTriDif" && sed -i "s/$dieuTriMoi/$dieuTriCu\ +$khoiDif/g" .local/covid-vn && polybar-msg hook covid-vn 1
-		elif [ $nhiemDif -lt 0 ]; then
-			dunstify -t 0 "CA NHẬP VIỆN" "🏥 $dieuTriDif" && sed -i "s/$dieuTriMoi/$dieuTriCu\ $khoiDif/g" .local/covid-vn && polybar-msg hook covid-vn 1
+			dunstify -t 0 "CA NHẬP VIỆN" "🏥 +$dieuTriDif" && sed -i "s/$dieuTriMoi/$dieuTriCu\ +$dieuTriDif/g" .local/covid-vn && polybar-msg hook covid-vn 1
+		elif [ $dieuTriDif -lt 0 ]; then
+			dunstify -t 0 "CA NHẬP VIỆN" "🏥 $dieuTriDif" && sed -i "s/$dieuTriMoi/$dieuTriCu\ $dieuTriDif/g" .local/covid-vn && polybar-msg hook covid-vn 1
 		fi
 	fi
 
