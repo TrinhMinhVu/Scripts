@@ -13,7 +13,7 @@ fxpass=
 num=$(($(newmail $vu $vupass)+$(newmail $vik $vikpass)+$(newmail $fx $fxpass)))
 
 if [ $num -eq 0 ]; then
-	echo " $num" > $HOME/.local/mail-count
+	echo " $num" > $HOME/.local/mail-count
 elif [ $num -gt 0 ]; then
 	echo " $num" > $HOME/.local/mail-count
 	notify-send -t 2000 "New mail!"

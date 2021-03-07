@@ -24,7 +24,7 @@ video="$( curl -s "${urlstring}" \
 )"
 	# if no video is selected quit the script, otherwise choose quality
 	if [[ "$video" != " " && -n "$video" ]]; then
-	quality="$(youtube-dlc -F https://"${video% *}" | grep "avc1\|m4a_dash" \
+	$quality="$(youtube-dlc -F https://"${video% *}" | grep "avc1\|m4a_dash" \
 		| awk '{print $4 " " $3 " code: " $1 " " $9 " " $NF}' \
 		| rofi -dmenu -i -p 'Select Quality -' -select "(best)" \
 		| awk '{print $4}' \
@@ -33,10 +33,13 @@ video="$( curl -s "${urlstring}" \
 		if [[ -z $quality ]]; then
 			exit 0
 		# if quality is either 720p30 or 360p30 or is streaming then say less
+		elif [[ $quality = "140" ]]; then
+			xfce4-terminal -e "mpv --script-opts=ytdl_hook-ytdl_path=youtube-dlc --ytdl-format=$quality https://${video% *} &"
 		elif [[ $quality = "22" || $quality = "18" || "${video:${#video}-4:4}" = "live" ]]; then
-			mpv --ytdl-format=$quality https://${video% *} &
+			mpv --script-opts=ytdl_hook-ytdl_path=youtube-dlc --ytdl-format=$quality https://${video% *} &
 		else # if quality is other then need to add audio cus no audio by default
-			mpv --ytdl-format=$quality+140 https://${video% *} &
+			echo $quality+140 https://${video% *} 
+			mpv --script-opts=ytdl_hook-ytdl_path=youtube-dlc --ytdl-format=$quality+140 https://${video% *} &
 		fi
 	else
 		exit 0
