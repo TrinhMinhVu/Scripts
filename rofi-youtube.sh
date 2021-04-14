@@ -3,7 +3,7 @@ query=""
 
 if [[ -z "$1" ]]; then
   printf "Search query: "; 
-  query=$( echo | rofi -dmenu -p "Search YT Video")
+  query=$( echo | rofi -dmenu -p "Search YT Video" -l 0)
 else
 	query="$1"
 fi
@@ -24,11 +24,10 @@ video="$( curl -s "${urlstring}" \
 )"
 	# if no video is selected quit the script, otherwise choose quality
 	if [[ "$video" != " " && -n "$video" ]]; then
-	$quality="$(youtube-dlc -F https://"${video% *}" | grep "avc1\|m4a_dash" \
+	quality="$(youtube-dlc -F https://"${video% *}" | grep "avc1\|m4a_dash" \
 		| awk '{print $4 " " $3 " code: " $1 " " $9 " " $NF}' \
 		| rofi -dmenu -i -p 'Select Quality -' -select "(best)" \
-		| awk '{print $4}' \
-	)"
+		| awk '{print $4}' )"
 		# if quality is not select then just quit
 		if [[ -z $quality ]]; then
 			exit 0

@@ -10,9 +10,9 @@ curl -s https://api.apify.com/v2/key-value-stores/EaCBL1JNntjR3EakU/records/LATE
 	sed -e 's/ //g' \
 	-e 's/}//g' \
 	-e 's/"infected":/ /g' \
-	-e 's/,"treated":/  /g' \
-	-e 's/,"recovered":/  /g' \
-	-e 's/,"deceased":/  /g' \
+	-e 's/,"treated":/    /g' \
+	-e 's/,"recovered":/    /g' \
+	-e 's/,"deceased":/    /g' \
 	> .local/covid-vn
 cp .local/covid-vn .local/covid-vn-new
 
