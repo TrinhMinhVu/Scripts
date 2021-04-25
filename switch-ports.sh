@@ -1,5 +1,5 @@
 #!/bin/sh
-current=1;
+current=0;
 
 case $current in
 	0)
@@ -16,7 +16,7 @@ case $current in
 	*)
     	pacmd set-sink-port alsa_output.pci-0000_00_1f.3.analog-stereo analog-output-lineout
     	sed -i "2s/.*/current=0;/" "${HOME}"/Scripts/switch-ports.sh
-    	echo "" > ${HOME}/.local/status-head-line
+    	echo "" > ${HOME}/.local/status-head-line
 	dunstify -h string:x-dunst-stack-tag:ports " lineout is up"
 	polybar-msg hook ipc-head-line 1
     	#notify-send "lineout" -t 1000
