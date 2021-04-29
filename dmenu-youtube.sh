@@ -3,7 +3,7 @@ query=""
 
 if [[ -z "$1" ]]; then
   printf "Search query: ";
-  query=$( echo | rofi -dmenu -p "Search YT Video" -l 0)
+  query=$( echo | dmenu -p "Search YT Video")
 else
 	query="$1"
 fi
@@ -19,23 +19,22 @@ urlstring="https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&
 # select video
 video="$( curl -s "${urlstring}" \
 	| jq -r '.items[] | "\(.snippet.title); 📺:\(.snippet.channelTitle) 📸:\(.snippet.liveBroadcastContent) 🔎: youtu.be/\(.id.videoId)"' \
-	| rofi -dmenu -i -p 'Select Video -' \
+	| dmenu -i -p 'Select Video -' \
 	| awk '{print $NF " " $(NF-2)}' \
 )"
 	# if no video is selected quit the script, otherwise choose quality
 	if [[ "$video" != " " && -n "$video" ]]; then
 	quality="$(youtube-dlc -F https://"${video% *}" | grep "avc1\|m4a_dash" \
 		| awk '{print $4 " " $3 " code: " $1 " " $9 " " $NF}' \
-		| rofi -dmenu -i -p 'Select Quality -' -select "(best)" \
+		| dmenu -i -p "Select Quality -" \
 		| awk '{print $4}' )"
 		# if quality is not select then just quit
 		if [[ -z $quality ]]; then
 			exit 0
 		# if quality is either 720p30 or 360p30 or is streaming then say less
 		elif [[ $quality = "140" ]]; then
-			echo https://${video% *}
+			mpv --script-opts=ytdl_hook-ytdl_path=youtube-dlc --ytdl-format=$quality https://${video% *} &
 
-			 #mpv --script-opts=ytdl_hook-ytdl_path=youtube-dlc --ytdl-format=$quality https://${video% *}
 		elif [[ $quality = "22" || $quality = "18" || "${video:${#video}-4:4}" = "live" ]]; then
 			mpv --script-opts=ytdl_hook-ytdl_path=youtube-dlc --ytdl-format=$quality https://${video% *} &
 		else # if quality is other then need to add audio cus no audio by default

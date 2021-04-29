@@ -7,8 +7,5 @@ if [ ! -f $noteFileName ]; then
 fi
 
 nvim -c "norm Go" \
-	-c "norm Go ---" \
-	-c "norm Go## $(date '+%d/%m/%Y %H:%M')" \
-	-c "norm G2o" \
 	-c "norm zz" \
 	$noteFileName

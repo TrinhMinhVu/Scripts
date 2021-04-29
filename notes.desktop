@@ -1,9 +1,7 @@
 [Desktop Entry]
-Name=Notes
-GenericName=Open Note Selector
+Name=
 
 #Exec=/home/mx-vu/Scripts/rofi-notes.sh GhiChu/Notes
-Icon=nvim
+Icon=
 Type=Application
-StartupNotify=true
 Categories=Other;
