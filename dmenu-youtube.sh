@@ -19,14 +19,14 @@ urlstring="https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&
 # select video
 video="$( curl -s "${urlstring}" \
 	| jq -r '.items[] | "\(.snippet.title); 📺:\(.snippet.channelTitle) 📸:\(.snippet.liveBroadcastContent) 🔎: youtu.be/\(.id.videoId)"' \
-	| dmenu -i -p 'Select Video -' \
+	| dmenu -l 15 -i -p 'Select Video -' \
 	| awk '{print $NF " " $(NF-2)}' \
 )"
 	# if no video is selected quit the script, otherwise choose quality
 	if [[ "$video" != " " && -n "$video" ]]; then
 	quality="$(youtube-dlc -F https://"${video% *}" | grep "avc1\|m4a_dash" \
 		| awk '{print $4 " " $3 " code: " $1 " " $9 " " $NF}' \
-		| dmenu -i -p "Select Quality -" \
+		| dmenu -l 15 -i -p "Select Quality -" \
 		| awk '{print $4}' )"
 		# if quality is not select then just quit
 		if [[ -z $quality ]]; then

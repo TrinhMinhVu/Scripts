@@ -8,7 +8,7 @@ prompt="$2"
 while true; do
 	p="$prompt"
 	[ -z "$p" ] && p="$target"
-	sel="$(echo -e ".new\n$(ls -1 "$target" | grep -v '^\.$')" | dmenu -p "$p" -l 10)"
+	sel="$(echo -e ".new\n$(ls -1 "$target" | grep -v '^\.$')" | dmenu -p "$p" -l 25)"
 	ec=$?
 	[ "$ec" -ne 0 ] && exit $ec
 
@@ -31,8 +31,8 @@ while true; do
 	if [ -e "$newt" ]; then
 		target="$newt"
 		if [ ! -d "$target" ]; then
-			a=$(echo -e "Open\nRemove" | dmenu -p "Action to take?")
-			if [ "$a" = "Open" ]; then xfce4-terminal -e "nvim '${target}'" ; elif [ "$a" = "Remove" ]; then trash-put "$target" ; fi
+			xfce4-terminal -e "nvim '${target}'" &
+			exit 0;
 		fi
 	fi
 done
