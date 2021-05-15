@@ -1,14 +1,24 @@
 #!/bin/bash
 newmail () {
-	 count=$(curl -u $1:$2 --silent "https://mail.google.com/mail/feed/atom")
-         echo $count | sed -e "s|.*<fullcount>\(.*\)</fullcount>.*|\1|"
+	curl -u $1:$2 --silent "https://mail.google.com/mail/feed/atom" > /home/mx-vu/.local/newmails-$1
+    sed -e "s|.*<fullcount>\(.*\)</fullcount>.*|\1|" /home/mx-vu/.local/newmails-$1
 }
+
+#details () {
+#	title=$(sed -e "s|.*<title>\(.*\)</title>.*|\1|" /home/mx-vu/.local/newmails-$1)
+#	sender=$(sed -e "s|.*<email>\(.*\)</email>.*|\1|" /home/mx-vu/.local/newmails-$1)
+#	summary=$(sed -e "s|.*<summary>\(.*\)</summary>.*|\1|" /home/mx-vu/.local/newmails-$1)
+#	out="$title $summary\n<u>$sender</u>"
+#	echo $out
+#}
+
 vu=
 vupass=
 vik=
 vikpass=
 fx=
 fxpass=
+
 
 num=$(($(newmail $vu $vupass)+$(newmail $vik $vikpass)+$(newmail $fx $fxpass)))
 

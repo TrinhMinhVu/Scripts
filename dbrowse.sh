@@ -8,7 +8,7 @@ prompt="$2"
 while true; do
 	p="$prompt"
 	[ -z "$p" ] && p="$target"
-	sel="$(echo -e ".new\n$(ls -1 "$target" | grep -v '^\.$')" | dmenu -p "$p" -l 25)"
+	sel="$(echo -e ".new\n$(ls -1 "$target" | grep -v '^\.$')" | dmenu -p "$p" -l 25 -i)"
 	ec=$?
 	[ "$ec" -ne 0 ] && exit $ec
 
