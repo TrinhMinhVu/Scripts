@@ -24,7 +24,7 @@ video="$( curl -s "${urlstring}" \
 )"
 	# if no video is selected quit the script, otherwise choose quality
 	if [[ "$video" != " " && -n "$video" ]]; then
-	quality="$(youtube-dlc -F https://"${video% *}" | grep "avc1\|m4a_dash" \
+	quality="$(youtube-dl -F https://"${video% *}" | grep "avc1\|m4a_dash" \
 		| awk '{print $4 " " $3 " code: " $1 " " $9 " " $NF}' \
 		| dmenu -l 15 -i -p "Select Quality -" \
 		| awk '{print $4}' )"
@@ -33,13 +33,13 @@ video="$( curl -s "${urlstring}" \
 			exit 0
 		# if quality is either 720p30 or 360p30 or is streaming then say less
 		elif [[ $quality = "140" ]]; then
-			mpv --script-opts=ytdl_hook-ytdl_path=youtube-dlc --ytdl-format=$quality https://${video% *} &
+			mpv --script-opts=ytdl_hook-ytdl_path=youtube-dl --ytdl-format=$quality https://${video% *} &
 
 		elif [[ $quality = "22" || $quality = "18" || "${video:${#video}-4:4}" = "live" ]]; then
-			mpv --script-opts=ytdl_hook-ytdl_path=youtube-dlc --ytdl-format=$quality https://${video% *} &
+			mpv --script-opts=ytdl_hook-ytdl_path=youtube-dl --ytdl-format=$quality https://${video% *} &
 		else # if quality is other then need to add audio cus no audio by default
 			echo $quality+140 https://${video% *}
-			mpv --script-opts=ytdl_hook-ytdl_path=youtube-dlc --ytdl-format=$quality+140 https://${video% *} &
+			mpv --script-opts=ytdl_hook-ytdl_path=youtube-dl --ytdl-format=$quality+140 https://${video% *} &
 		fi
 	else
 		exit 0

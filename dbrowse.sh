@@ -8,7 +8,7 @@ prompt="$2"
 while true; do
 	p="$prompt"
 	[ -z "$p" ] && p="$target"
-	sel="$(echo -e ".new\n$(ls -1 "$target" | grep -v '^\.$')" | dmenu -p "$p" -l 25 -i)"
+	sel="$(echo -e "../\n.new\n$(ls -1 "$target" | grep -v '^\.$')" | dmenu -p "$p" -l 25 -i)"
 	ec=$?
 	[ "$ec" -ne 0 ] && exit $ec
 
@@ -25,6 +25,8 @@ while true; do
 		else
 			newt="$p"
 		fi
+	elif [ "$sel" = "../" ]; then
+		newt="$target/../"
 	else
 		newt="$(realpath "${target}/${sel}")"
 	fi

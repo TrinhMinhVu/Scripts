@@ -24,8 +24,8 @@ case "$1" in
 	;;
 "--mini")
 	if [ "$2" != "" ]; then
-		curl -s wttr.in/${diaDanh[$2]}?lang=vi\&format="%c+%f+%C"
-	else curl wttr.in/?lang=vi\&format="%c+%f+%C"
+		curl -s wttr.in/${diaDanh[$2]}?lang=vi\&format="%f+%C"
+	else curl wttr.in/?lang=vi\&format="%f+%C"
 	fi
 	;;
 *)

@@ -1,7 +1,8 @@
 #!/bin/bash
 #imwheel -k
+
+setxkbmap -option caps:escape
 $HOME/Scripts/disablemouseaccel.sh
 xhost si:localuser:root
-setxkbmap -option caps:escape
-nvidia-settings -a "[gpu:0]/GPUFanControlState=1" -a "[fan:0]/GPUTargetFanSpeed=30"
+nvidia-settings -a "[gpu:0]/GPUFanControlState=1" -a "[fan:0]/GPUTargetFanSpeed=10"
 #sudo $HOME/Scripts/timesync.sh

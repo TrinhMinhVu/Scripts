@@ -62,6 +62,47 @@ chetDif="$((chetMoi-chetCu))"
 		fi
 	fi
 
+elif [ "$1" = "text" ]; then
+cp ~/.local/covid-vn-new-text ~/.local/covid-vn-old-text
+curl -s https://api.apify.com/v2/key-value-stores/EaCBL1JNntjR3EakU/records/LATEST?disableRedirect=true |\
+	tail -n +6 |\
+	sed -e 's/ //g' \
+	-e 's/}//g' \
+	-e '/"infected":/d' \
+	-e 's/"treated":/\%\{F#D8DEE9\}NHPVN:\%\{F-\} /g' \
+	-e '/"recovered":/d' \
+	-e 's/"deceased":/\%\{F#D8DEE9\}TUVG:\%\{F-\} /g' \
+	-e 's/,//g' |\
+	tr '\n' ' ' |\
+	sed 's/ $//g' \
+	> ~/.local/covid-vn-text
+cp ~/.local/covid-vn-text ~/.local/covid-vn-new-text
+
+dieuTriCu="$(awk '{print $2}' ~/.local/covid-vn-old-text)"
+chetCu="$(awk '{print $4}' ~/.local/covid-vn-old-text)"
+
+dieuTriMoi="$(awk '{print $2}' ~/.local/covid-vn-new-text)"
+chetMoi="$(awk '{print $4}' ~/.local/covid-vn-new-text)"
+
+dieuTriDif="$((dieuTriMoi-dieuTriCu))"
+chetDif="$((chetMoi-chetCu))"
+
+	if [ ! $dieuTriDif -eq 0 ]; then
+		if [ $dieuTriDif -gt 0  ]; then
+			dunstify -t 0 "CA NHẬP VIỆN" " +$dieuTriDif" & sed -i "s/$dieuTriMoi/$dieuTriCu+$dieuTriDif/g" ~/.local/covid-vn-text
+		elif [ $dieuTriDif -lt 0 ]; then
+			dunstify -t 0 "CA XUẤT VIỆN" " $dieuTriDif" & sed -i "s/$dieuTriMoi/$dieuTriCu$dieuTriDif/g" ~/.local/covid-vn-text
+		fi
+	fi
+
+	if [ ! $chetDif -eq 0 ]; then
+		if [ $chetDif -gt 0  ]; then
+			dunstify -t 0 "CA TỬ VONG" " +$chetDif" & sed -i "s/$chetMoi/$chetCu+$chetDif/g" ~/.local/covid-vn-text
+		elif [ $chetDif -lt 0 ]; then
+			dunstify -t 0 "CA TỬ VONG" " $chetDif" & sed -i "s/$chetMoi/$chetCu$chetDif/g" ~/.local/covid-vn-text
+		fi
+	fi
+
 elif [ "$1" = "mini" ]; then
 cp ~/.local/covid-vn-new-mini ~/.local/covid-vn-old-mini
 curl -s https://api.apify.com/v2/key-value-stores/EaCBL1JNntjR3EakU/records/LATEST?disableRedirect=true |\
@@ -72,16 +113,17 @@ curl -s https://api.apify.com/v2/key-value-stores/EaCBL1JNntjR3EakU/records/LATE
 	-e 's/"treated":/ /g' \
 	-e '/"recovered":/d' \
 	-e 's/"deceased":/ /g' \
-	-e 's/,/ /g' |\
+	-e 's/,/ /g' \
+	-e 's/\./,/g' |\
 	tr '\n' ' ' \
 	> ~/.local/covid-vn-mini
 cp ~/.local/covid-vn-mini ~/.local/covid-vn-new-mini
 
-dieuTriCu="$(awk '{print $4}' ~/.local/covid-vn-old-mini)"
-chetCu="$(awk '{print $8}' ~/.local/covid-vn-old-mini)"
+dieuTriCu="$(awk '{print $2}' ~/.local/covid-vn-old-mini)"
+chetCu="$(awk '{print $4}' ~/.local/covid-vn-old-mini)"
 
-dieuTriMoi="$(awk '{print $4}' ~/.local/covid-vn-new-mini)"
-chetMoi="$(awk '{print $8}' ~/.local/covid-vn-new-mini)"
+dieuTriMoi="$(awk '{print $2}' ~/.local/covid-vn-new-mini)"
+chetMoi="$(awk '{print $4}' ~/.local/covid-vn-new-mini)"
 
 dieuTriDif="$((dieuTriMoi-dieuTriCu))"
 chetDif="$((chetMoi-chetCu))"
@@ -90,7 +132,7 @@ chetDif="$((chetMoi-chetCu))"
 		if [ $dieuTriDif -gt 0  ]; then
 			dunstify -t 0 "CA NHẬP VIỆN" " +$dieuTriDif" & sed -i "s/$dieuTriMoi/$dieuTriCu +$dieuTriDif/g" ~/.local/covid-vn-mini
 		elif [ $dieuTriDif -lt 0 ]; then
-			dunstify -t 0 "CA NHẬP VIỆN" " $dieuTriDif" & sed -i "s/$dieuTriMoi/$dieuTriCu $dieuTriDif/g" ~/.local/covid-vn-mini
+			dunstify -t 0 "CA XUẤT VIỆN" " $dieuTriDif" & sed -i "s/$dieuTriMoi/$dieuTriCu $dieuTriDif/g" ~/.local/covid-vn-mini
 		fi
 	fi
 
