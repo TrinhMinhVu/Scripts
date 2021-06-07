@@ -33,7 +33,14 @@ while true; do
 	if [ -e "$newt" ]; then
 		target="$newt"
 		if [ ! -d "$target" ]; then
-			xfce4-terminal -e "nvim '${target}'" &
+			case "$target" in
+				*.pdf)
+					zathura "$target" &
+					;;
+				*)
+					xfce4-terminal -e "nvim '${target}'" &
+					;;
+			esac
 			exit 0;
 		fi
 	fi
