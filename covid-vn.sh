@@ -1,19 +1,10 @@
 #!/bin/sh
 if [ "$1" = "default" ]; then
-curl -s https://api.apify.com/v2/key-value-stores/EaCBL1JNntjR3EakU/records/LATEST?disableRedirect=true | tail -n +6 | sed -e 's/ //g' -e 's/}//g'
+	curl -s https://api.apify.com/v2/key-value-stores/EaCBL1JNntjR3EakU/records/LATEST?disableRedirect=true | jq -r '"infected: \(.infected); treated: \(.treated); recovered: \(.recovered); deceased: \(.deceased);"'
 
 elif [ "$1" = "extra" ]; then
 cp ~/.local/covid-vn-new ~.local/covid-vn-old
-curl -s https://api.apify.com/v2/key-value-stores/EaCBL1JNntjR3EakU/records/LATEST?disableRedirect=true |\
-	tail -n +6 |\
-	tr '\n' ' ' |\
-	sed -e 's/ //g' \
-	-e 's/}//g' \
-	-e 's/"infected":/ /g' \
-	-e 's/,"treated":/  /g' \
-	-e 's/,"recovered":/  /g' \
-	-e 's/,"deceased":/  /g' \
-	> .local/covid-vn
+curl -s https://api.apify.com/v2/key-value-stores/EaCBL1JNntjR3EakU/records/LATEST?disableRedirect=true | jq -r '" \(.infected)  \(.treated)  \(.recovered)   \(.deceased)"' > .local/covid-vn
 cp ~/.local/covid-vn ~/.local/covid-vn-new
 
 nhiemCu="$(awk '{print $2}' ~/.local/covid-vn-old)"
@@ -64,18 +55,7 @@ chetDif="$((chetMoi-chetCu))"
 
 elif [ "$1" = "text" ]; then
 cp ~/.local/covid-vn-new-text ~/.local/covid-vn-old-text
-curl -s https://api.apify.com/v2/key-value-stores/EaCBL1JNntjR3EakU/records/LATEST?disableRedirect=true |\
-	tail -n +6 |\
-	sed -e 's/ //g' \
-	-e 's/}//g' \
-	-e '/"infected":/d' \
-	-e 's/"treated":/\%\{F#D8DEE9\}NHPVN:\%\{F-\} /g' \
-	-e '/"recovered":/d' \
-	-e 's/"deceased":/\%\{F#D8DEE9\}TUVG:\%\{F-\} /g' \
-	-e 's/,//g' |\
-	tr '\n' ' ' |\
-	sed 's/ $//g' \
-	> ~/.local/covid-vn-text
+curl -s https://api.apify.com/v2/key-value-stores/EaCBL1JNntjR3EakU/records/LATEST?disableRedirect=true | jq -r '"%{F#D8DEE9}NHPVN:%{F-} \(.treated) %{F#D8DEE9}TUVG:%{F-} \(.deceased)"' > ~/.local/covid-vn-text
 cp ~/.local/covid-vn-text ~/.local/covid-vn-new-text
 
 dieuTriCu="$(awk '{print $2}' ~/.local/covid-vn-old-text)"
@@ -91,7 +71,7 @@ chetDif="$((chetMoi-chetCu))"
 		if [ $dieuTriDif -gt 0  ]; then
 			dunstify -t 0 "CA NHẬP VIỆN" " +$dieuTriDif" & sed -i "s/$dieuTriMoi/$dieuTriCu+$dieuTriDif/g" ~/.local/covid-vn-text
 		elif [ $dieuTriDif -lt 0 ]; then
-			dunstify -t 0 "CA XUẤT VIỆN" " $dieuTriDif" & sed -i "s/$dieuTriMoi/$dieuTriCu$dieuTriDif/g" ~/.local/covid-vn-text
+			dunstify -t 0 "CA XUẤT VIỆN" " $((-1*dieuTriDif))" & sed -i "s/$dieuTriMoi/$dieuTriCu$dieuTriDif/g" ~/.local/covid-vn-text
 		fi
 	fi
 
@@ -105,18 +85,7 @@ chetDif="$((chetMoi-chetCu))"
 
 elif [ "$1" = "mini" ]; then
 cp ~/.local/covid-vn-new-mini ~/.local/covid-vn-old-mini
-curl -s https://api.apify.com/v2/key-value-stores/EaCBL1JNntjR3EakU/records/LATEST?disableRedirect=true |\
-	tail -n +6 |\
-	sed -e 's/ //g' \
-	-e 's/}//g' \
-	-e '/"infected":/d' \
-	-e 's/"treated":/ /g' \
-	-e '/"recovered":/d' \
-	-e 's/"deceased":/ /g' \
-	-e 's/,/ /g' \
-	-e 's/\./,/g' |\
-	tr '\n' ' ' \
-	> ~/.local/covid-vn-mini
+curl -s https://api.apify.com/v2/key-value-stores/EaCBL1JNntjR3EakU/records/LATEST?disableRedirect=true | jq -r '" \(.treated)   \(.deceased)"' > ~/.local/covid-vn-mini
 cp ~/.local/covid-vn-mini ~/.local/covid-vn-new-mini
 
 dieuTriCu="$(awk '{print $2}' ~/.local/covid-vn-old-mini)"
