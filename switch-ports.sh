@@ -1,5 +1,5 @@
 #!/bin/sh
-current=0;
+current=1;
 
 case $current in
 	0)
