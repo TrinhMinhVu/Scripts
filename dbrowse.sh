@@ -34,7 +34,8 @@ while true; do
 		target="$newt"
 		if [ ! -d "$target" ]; then
 			case "$target" in
-				*.pdf)
+				*.pdf | *.epub | *.mobi )
+					echo "$target" > ~/.local/last-read-book
 					zathura "$target" &
 					;;
 				*)
