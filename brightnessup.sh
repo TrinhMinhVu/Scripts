@@ -1,10 +1,10 @@
 #!/bin/bash
-file='/sys/class/backlight/acpi_video0/brightness'
-huh=$(cat $file);
-max=19;
-if [ $huh -le $max ];
-then
-after=$(($huh+1));
-exec echo $after > $file; 
-else exec notify-send 'all the way up' -t 1000
+b=$(xbacklight -get)
+
+if [ ${b%%.*} -gt 90 ]; then
+	xbacklight -set 100%
+else
+	xbacklight -inc 10%
 fi
+c=$(xbacklight -get)
+dunstify -h string:x-dunst-stack-tag:brightness "Brightness" "${c%.*}%"

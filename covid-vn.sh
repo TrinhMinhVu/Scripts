@@ -73,17 +73,17 @@ if [ $online -eq 0 ]; then
 
 		if [ ! $dieuTriDif -eq 0 ]; then
 			if [ $dieuTriDif -gt 0  ]; then
-				dunstify -t 0 "CA NHẬP VIỆN" " +$dieuTriDif" & sed -i "s/$dieuTriMoi/$dieuTriCu+$dieuTriDif/g" ~/.local/covid-vn-text
+				dunstify -t 0 "CA NHẬP VIỆN" "+$dieuTriDif" & sed -i "s/$dieuTriMoi/$dieuTriCu+$dieuTriDif/g" ~/.local/covid-vn-text
 			elif [ $dieuTriDif -lt 0 ]; then
-				dunstify -t 0 "CA XUẤT VIỆN" " $((-1*dieuTriDif))" & sed -i "s/$dieuTriMoi/$dieuTriCu$dieuTriDif/g" ~/.local/covid-vn-text
+				dunstify -t 0 "CA XUẤT VIỆN" "$((-1*dieuTriDif))" & sed -i "s/$dieuTriMoi/$dieuTriCu$dieuTriDif/g" ~/.local/covid-vn-text
 			fi
 		fi
 
 		if [ ! $chetDif -eq 0 ]; then
 			if [ $chetDif -gt 0  ]; then
-				dunstify -t 0 "CA TỬ VONG" " +$chetDif" & sed -i "s/$chetMoi/$chetCu+$chetDif/g" ~/.local/covid-vn-text
+				dunstify -t 0 "CA TỬ VONG" "+$chetDif" & sed -i "s/$chetMoi/$chetCu+$chetDif/g" ~/.local/covid-vn-text
 			elif [ $chetDif -lt 0 ]; then
-				dunstify -t 0 "CA TỬ VONG" " $((-1*chetDif))" & sed -i "s/$chetMoi/$chetCu$chetDif/g" ~/.local/covid-vn-text
+				dunstify -t 0 "CA TỬ VONG" "$((-1*chetDif))" & sed -i "s/$chetMoi/$chetCu$chetDif/g" ~/.local/covid-vn-text
 			fi
 		fi
 
@@ -103,17 +103,17 @@ if [ $online -eq 0 ]; then
 
 		if [ ! $dieuTriDif -eq 0 ]; then
 			if [ $dieuTriDif -gt 0  ]; then
-				dunstify -t 0 "CA NHẬP VIỆN" " +$dieuTriDif" & sed -i "s/$dieuTriMoi/$dieuTriCu +$dieuTriDif/g" ~/.local/covid-vn-mini
+				dunstify -t 0 "CA NHẬP VIỆN" "+$dieuTriDif" & sed -i "s/$dieuTriMoi/$dieuTriCu +$dieuTriDif/g" ~/.local/covid-vn-mini
 			elif [ $dieuTriDif -lt 0 ]; then
-				dunstify -t 0 "CA XUẤT VIỆN" " $dieuTriDif" & sed -i "s/$dieuTriMoi/$dieuTriCu $dieuTriDif/g" ~/.local/covid-vn-mini
+				dunstify -t 0 "CA XUẤT VIỆN" "$dieuTriDif" & sed -i "s/$dieuTriMoi/$dieuTriCu $dieuTriDif/g" ~/.local/covid-vn-mini
 			fi
 		fi
 
 		if [ ! $chetDif -eq 0 ]; then
 			if [ $chetDif -gt 0  ]; then
-				dunstify -t 0 "CA TỬ VONG" " +$chetDif" & sed -i "s/$chetMoi/$chetCu +$chetDif/g" ~/.local/covid-vn-mini
+				dunstify -t 0 "CA TỬ VONG" "+$chetDif" & sed -i "s/$chetMoi/$chetCu +$chetDif/g" ~/.local/covid-vn-mini
 			elif [ $chetDif -lt 0 ]; then
-				dunstify -t 0 "CA TỬ VONG" " $chetDif" & sed -i "s/$chetMoi/$chetCu $chetDif/g" ~/.local/covid-vn-mini
+				dunstify -t 0 "CA TỬ VONG" "$chetDif" & sed -i "s/$chetMoi/$chetCu $chetDif/g" ~/.local/covid-vn-mini
 			fi
 		fi
 

@@ -3,7 +3,11 @@
 #setxkbmap -option caps:swapescape
 
 #setxkbmap -option caps:escape
-$HOME/Scripts/disablemouseaccel.sh
+#xrdb -merge /home/mx-vu/.Xresources
+#$HOME/Scripts/disablemouseaccel.sh
+xinput set-prop 13 326 1
+xinput set-prop 9 187 0
 xhost si:localuser:root
-nvidia-settings -a "[gpu:0]/GPUFanControlState=1" -a "[fan:0]/GPUTargetFanSpeed=10"
+sleep 1 && /usr/bin/xmodmap /home/mx-vu/.config/xmodmap
+#nvidia-settings -a "[gpu:0]/GPUFanControlState=1" -a "[fan:0]/GPUTargetFanSpeed=10"
 #sudo $HOME/Scripts/timesync.sh
